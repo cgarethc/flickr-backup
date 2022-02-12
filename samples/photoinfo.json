@@ -1,0 +1,79 @@
+{
+  "photo": {
+    "id": "51814659162",
+    "secret": "be12b4ffaa",
+    "server": "65535",
+    "farm": 66,
+    "dateuploaded": "1641958062",
+    "isfavorite": 0,
+    "license": "0",
+    "safety_level": "0",
+    "rotation": 0,
+    "originalsecret": "e9264ff099",
+    "originalformat": "jpg",
+    "owner": {
+      "nsid": "8760481@N04",
+      "username": "abby.t",
+      "realname": "Abby T",
+      "location": "Auckland, New Zealand",
+      "iconserver": "1459",
+      "iconfarm": 2,
+      "path_alias": "turbott"
+    },
+    "title": {
+      "_content": "2022-01-12_04-27-33"
+    },
+    "description": {
+      "_content": ""
+    },
+    "visibility": {
+      "ispublic": 1,
+      "isfriend": 0,
+      "isfamily": 0
+    },
+    "dates": {
+      "posted": "1641958062",
+      "taken": "2022-01-10 18:23:38",
+      "takengranularity": 0,
+      "takenunknown": "0",
+      "lastupdate": "1641958062"
+    },
+    "views": "116",
+    "editability": {
+      "cancomment": 0,
+      "canaddmeta": 0
+    },
+    "publiceditability": {
+      "cancomment": 1,
+      "canaddmeta": 0
+    },
+    "usage": {
+      "candownload": 1,
+      "canblog": 0,
+      "canprint": 0,
+      "canshare": 1
+    },
+    "comments": {
+      "_content": "0"
+    },
+    "notes": {
+      "note": []
+    },
+    "people": {
+      "haspeople": 0
+    },
+    "tags": {
+      "tag": []
+    },
+    "urls": {
+      "url": [
+        {
+          "type": "photopage",
+          "_content": "https://www.flickr.com/photos/turbott/51814659162/"
+        }
+      ]
+    },
+    "media": "photo"
+  },
+  "stat": "ok"
+}
