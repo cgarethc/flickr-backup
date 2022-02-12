@@ -9,6 +9,10 @@ const flickrAPIKey = config.flickrAPIKey;
 const flickr = new Flickr(flickrAPIKey);
 
 (async () => {
+  if (!fs.existsSync('./files')) {
+    fs.mkdirSync('./files');
+  }
+
   let res = await flickr.photosets.getList({ user_id: config.flickrNSID });
   console.log(`${res.body.photosets.photoset.length} photosets found`);
   for (let album of res.body.photosets.photoset) {

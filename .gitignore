@@ -108,3 +108,4 @@ config.js
 files/**
 !files/README.md
 .DS_Store
+build

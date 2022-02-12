@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "mkdir -p build && ./node_modules/.bin/esbuild index.js --platform=node --bundle --outfile=build/server.js"
   },
   "repository": {
     "type": "git",
@@ -16,9 +16,12 @@
     "url": "https://github.com/cgarethc/flickr-backup/issues"
   },
   "homepage": "https://github.com/cgarethc/flickr-backup#readme",
-  "dependencies": {
+  "dependencies": {    
     "flickr-sdk": "^5.0.0",
     "sanitize-filename": "^1.6.3",
     "superagent": "^7.1.1"
+  },
+  "devDependencies": {
+    "esbuild": "^0.14.21"
   }
 }
