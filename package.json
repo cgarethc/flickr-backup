@@ -18,6 +18,7 @@
   "homepage": "https://github.com/cgarethc/flickr-backup#readme",
   "dependencies": {
     "flickr-sdk": "^5.0.0",
-    "sanitize-filename": "^1.6.3"
+    "sanitize-filename": "^1.6.3",
+    "superagent": "^7.1.1"
   }
 }

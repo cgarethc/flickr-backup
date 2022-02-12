@@ -1,7 +1,7 @@
 const Flickr = require('flickr-sdk');
 const sanitize = require("sanitize-filename");
 const fs = require("fs");
-const https = require('https');
+const request = require("superagent");
 
 const config = require('./config');
 
@@ -51,20 +51,31 @@ const flickr = new Flickr(flickrAPIKey);
       let counter = 1;
       for (let photo of res.body.photoset.photo) {
         try {
-          const photoRes = await flickr.photos.getSizes({ photo_id: photo.id });
-          const originalUrl = photoRes.body.sizes.size[photoRes.body.sizes.size.length - 1].source;
           const photoInfoRes = await flickr.photos.getInfo({ photo_id: photo.id });
           const photoFormat = photoInfoRes.body.photo.originalformat;
           const photoTitle = photoInfoRes.body.photo.title._content;
+          const media = photoInfoRes.body.photo.media;
+          const photoRes = await flickr.photos.getSizes({ photo_id: photo.id });
+
+          const allSizes = photoRes.body.sizes.size;
+          let originalUrl;
+          if (media === 'photo') {
+            originalUrl = allSizes.find(size => size.label === 'Original').source;
+          }
+          else if (media === 'video') {
+            originalUrl = allSizes.find(size => size.label === '1080p').source;
+          }
+          else {
+            throw new Error(`Unknown media type ${media}`);
+          }
+
           const sanitizedPhotoTitle = sanitize(photoTitle);
 
           console.debug(`writing photo ${counter++} of ${res.body.photoset.photo.length}`, sanitizedPhotoTitle);
 
-          const file = fs.createWriteStream(`${sanitizedFileName}/${sanitizedPhotoTitle}-${photo.id}.${photoFormat}`);
-          https.get(originalUrl, function (response) {
-            response.pipe(file);
-          });
-
+          const outputFilename = `${sanitizedFileName}/${sanitizedPhotoTitle}-${photo.id}.${photoFormat}`;
+          const file = fs.createWriteStream(outputFilename);
+          request.get(originalUrl).pipe(file);
         } catch (err) {
           console.error(err);
         }
