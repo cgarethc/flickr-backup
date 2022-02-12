@@ -102,4 +102,8 @@ dist
 
 # TernJS port file
 .tern-port
+
+# app specific
 config.js
+files/**
+!files/README.md
