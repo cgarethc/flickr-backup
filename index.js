@@ -66,20 +66,29 @@ const flickr = new Flickr(flickrAPIKey);
           if (media === 'photo') {
             originalUrl = allSizes.find(size => size.label === 'Original').source;
           }
-          else if (media === 'video') {
-            originalUrl = allSizes.find(size => size.label === '1080p').source;
-          }
-          else {
+          else if (media === "video") {
+            const labelsBestToWorst = ['1080p', '720p', '360p'];
+            for (let label of labelsBestToWorst) {
+              const size = allSizes.find((size) => size.label === label);
+              if (size) {
+                originalUrl = size.source;
+                break;
+              }
+            }
+          } else {
             throw new Error(`Unknown media type ${media}`);
           }
 
-          const sanitizedPhotoTitle = sanitize(photoTitle);
-
-          console.debug(`writing photo ${counter++} of ${res.body.photoset.photo.length}`, sanitizedPhotoTitle);
-
-          const outputFilename = `${sanitizedFileName}/${sanitizedPhotoTitle}-${photo.id}.${photoFormat}`;
-          const file = fs.createWriteStream(outputFilename);
-          request.get(originalUrl).pipe(file);
+          if (originalUrl) {
+            const sanitizedPhotoTitle = sanitize(photoTitle);
+            console.debug(`writing photo ${counter++} of ${res.body.photoset.photo.length}`, sanitizedPhotoTitle);
+            const outputFilename = `${sanitizedFileName}/${sanitizedPhotoTitle}-${photo.id}.${photoFormat}`;
+            const file = fs.createWriteStream(outputFilename);
+            request.get(originalUrl).pipe(file);
+          }
+          else {
+            console.warn('No URL found for photo, not writing', JSON.stringify(allSizes));
+          }
         } catch (err) {
           console.error(err);
         }
