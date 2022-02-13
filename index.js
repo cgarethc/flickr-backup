@@ -2,6 +2,7 @@ const Flickr = require('flickr-sdk');
 const sanitize = require("sanitize-filename");
 const fs = require("fs");
 const request = require("superagent");
+const sanitise = require("./sanitise").sanitise;
 
 const config = require('./config');
 
@@ -80,17 +81,24 @@ const flickr = new Flickr(flickrAPIKey);
           }
 
           if (originalUrl) {
-            const sanitizedPhotoTitle = sanitize(photoTitle);
+            const sanitizedPhotoTitle = sanitise(sanitize(photoTitle));
             console.debug(`writing photo ${counter++} of ${res.body.photoset.photo.length}`, sanitizedPhotoTitle);
             const outputFilename = `${sanitizedFileName}/${sanitizedPhotoTitle}-${photo.id}.${photoFormat}`;
             const file = fs.createWriteStream(outputFilename);
-            request.get(originalUrl).pipe(file);
+            request
+              .get(originalUrl)
+              .retry(2)
+              .timeout({
+                response: 5000,  // Wait 5 seconds for the server to start sending,
+                deadline: 60000, // but allow 1 minute for the file to finish loading.
+              })
+              .pipe(file);
           }
           else {
             console.warn('No URL found for photo, not writing', JSON.stringify(allSizes));
           }
         } catch (err) {
-          console.error(err);
+          console.error('Failed to back up the file', originalUrl, err);
         }
 
       }

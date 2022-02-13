@@ -108,3 +108,4 @@ config.js
 .DS_Store
 build
 files
+*.sh

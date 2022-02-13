@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "mkdir -p build && ./node_modules/.bin/esbuild index.js --platform=node --bundle --outfile=build/server.js"
+    "build": "mkdir -p build && ./node_modules/.bin/esbuild index.js --platform=node --bundle --outfile=build/server.js",
+    "test": "node node_modules/jest/bin/jest.js test"
   },
   "repository": {
     "type": "git",
@@ -16,12 +17,15 @@
     "url": "https://github.com/cgarethc/flickr-backup/issues"
   },
   "homepage": "https://github.com/cgarethc/flickr-backup#readme",
-  "dependencies": {    
+  "dependencies": {
+    "emoji-strip": "^1.0.1",
     "flickr-sdk": "^5.0.0",
+    "remove-accents": "^0.4.2",
     "sanitize-filename": "^1.6.3",
     "superagent": "^7.1.1"
   },
   "devDependencies": {
-    "esbuild": "^0.14.21"
+    "esbuild": "^0.14.21",
+    "jest": "^27.5.1"
   }
 }
