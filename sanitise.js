@@ -15,9 +15,38 @@ const macronMap = {
   'Ū': 'UU'
 };
 
+/*
+< (less than)
+> (greater than)
+: (colon)
+" (double quote)
+/ (forward slash)
+\ (backslash)
+| (vertical bar or pipe)
+? (question mark)
+* (asterisk)
+*/
+const OEMreservedMap = {
+  '<': '[lt]',
+  '>': '[gt]',
+  ':': ' ',
+  '"': `'`,
+  '/': ' ',
+  '\\': ' ',
+  '|': ' ',
+  '?': ' ',
+  '*': ' '
+};
+
 exports.sanitiseMacrons = (text) => {
   return text.replace(/[āēīōūĀĒĪŌŪ]/g, (match) => {
     return macronMap[match];
+  });
+}
+
+exports.sanitiseOEMReserved = (text) => {
+  return text.replace(/[<>:"/\\|?*]/g, (match) => {
+    return OEMreservedMap[match];
   });
 }
 
@@ -31,5 +60,6 @@ exports.sanitise = (text) => {
   sanitised = emojiStrip(sanitised);
   sanitised = accents.remove(sanitised);
   sanitised = exports.sanitiseSmartQuotes(sanitised);
+  sanitised = exports.sanitiseOEMReserved(sanitised);
   return sanitised;
 };
