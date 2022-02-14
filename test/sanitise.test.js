@@ -9,6 +9,10 @@ test('accents', () => {
   expect(sanitise('áèíóüÁÉÍÓÚ')).toBe('aeiouAEIOU');
 });
 
+test('smartquotes', () => {
+  expect(sanitise('‘single’ “double”')).toBe(`'single' "double"`);
+});
+
 test('all', () => {
-  expect(sanitise('🍦👍āēīōūĀĒĪŌŪê')).toBe('aaeeiioouuAAEEIIOOUUe');
+  expect(sanitise('🍦👍āēīōūĀĒĪŌŪê ‘single’ “double”')).toBe(`aaeeiioouuAAEEIIOOUUe 'single' "double"`);
 });

@@ -21,10 +21,15 @@ exports.sanitiseMacrons = (text) => {
   });
 }
 
+exports.sanitiseSmartQuotes = (text) => {
+  return text.replace(/[‘’]/g, "'").replace(/[“”]/g, '"');
+};
+
 exports.sanitise = (text) => {
   let sanitised = text;
   sanitised = exports.sanitiseMacrons(text);
   sanitised = emojiStrip(sanitised);
   sanitised = accents.remove(sanitised);
+  sanitised = exports.sanitiseSmartQuotes(sanitised);
   return sanitised;
 };
