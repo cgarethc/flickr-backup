@@ -55,6 +55,7 @@ const flickr = new Flickr(flickrAPIKey);
       console.log(`${res.body.photoset.photo.length} photos found`);
       let counter = 1;
       for (let photo of res.body.photoset.photo) {
+        let originalUrl;
         try {
           const photoInfoRes = await flickr.photos.getInfo({ photo_id: photo.id });
           const photoFormat = photoInfoRes.body.photo.originalformat;
@@ -63,7 +64,7 @@ const flickr = new Flickr(flickrAPIKey);
           const photoRes = await flickr.photos.getSizes({ photo_id: photo.id });
 
           const allSizes = photoRes.body.sizes.size;
-          let originalUrl;
+
           if (media === 'photo') {
             originalUrl = allSizes.find(size => size.label === 'Original').source;
           }
@@ -107,4 +108,6 @@ const flickr = new Flickr(flickrAPIKey);
     }
 
   }
+
+  console.log('done');
 })();
