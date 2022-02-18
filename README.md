@@ -1,5 +1,7 @@
 # flickr-backup
 
+flickr-backup is provided under an MIT License. See LICENSE.TXT.
+
 For a full run-down see my [Medium Story](https://cgarethc.medium.com/saas-prepper-backing-up-my-flickr-collection-with-a-raspberry-pi-402de3a6178d)
 
 This tool is designed to backup all the albums in a Flickr account to the local filesystem.
